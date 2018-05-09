@@ -2,11 +2,34 @@
 const express = require("express"),
   WebSocket = require("ws"),
   app = express(),
+  cookieParser = require("cookie-parser"),
+  expressSession = require("express-session"),
+  passport = require("passport"),
+  config = require("./src/config")(process.env),
+  strategy = require("./src/auth")(config),
+  routes = require("./src/routes")(passport, config),
+  MemoryStore = require("session-memory-store")(expressSession),
   wss = new WebSocket.Server({ port: 3010 });
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => res.send("Hello World!"))
+passport.use(strategy);
+
+passport.serializeUser((user, done) => done(null, user))
+passport.deserializeUser((user, done) => done(null, user))
+
+app.use(cookieParser())
+app.use(expressSession({
+  secret: config.sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  store: new MemoryStore()
+}))
+app.use(passport.initialize());
+app.get("/github", routes.onAuthenticationRequest);
+app.get("/github/callback", routes.onAuthenticationCallback);
+app.get("/logout", routes.onLogout);
+
 
 wss.on('connection', function connection(ws, req) {
   // const location = url.parse(req.url, true);
