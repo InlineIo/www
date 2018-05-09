@@ -1,0 +1,31 @@
+{
+  "name": "www2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "w": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "ow": "^0.3.0",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.7",
+    "sequelize-cli": "^4.0.0",
+    "vue": "^2.5.16",
+    "vuex": "^3.0.1",
+    "winston": "^2.4.2",
+    "ws": "^5.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "nodemon": "^1.17.4"
+  }
+}
