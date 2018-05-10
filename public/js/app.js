@@ -6,8 +6,9 @@ Vue.use(Buefy.default);
 const routes = [
   { path: '/', component: Home, title: "Home"},
   { path: '/organizations', component: Organizations, title: "Organizations" },
-  { path: '/repositories', component: Repositories, title: "Repositories" },
-  { path: '/boards', component: Boards, title: "Boards" }
+  { path: '/repositories/:orgId', component: Repositories, title: "Repositories" },
+  { path: '/boards', component: Boards, title: "Boards" },
+  { path: '/boards/:orgId', component: Boards, title: "Boards" }
 ];
 
 const router = new VueRouter({
@@ -27,6 +28,10 @@ const app = new Vue({
   router,
   store,
   data: {
-    routes
+    routes: [{
+      path: '/organizations',
+      component: Organizations,
+      title: "Organizations"
+    }]
   }
 }).$mount('#app');

@@ -9,6 +9,8 @@ const express = require("express"),
   strategy = require("./src/auth")(config),
   routes = require("./src/routes")(passport, config),
   MemoryStore = require("session-memory-store")(expressSession),
+  github = require("octonode"),
+  jwt = require("jsonwebtoken"),
   wss = new WebSocket.Server({ port: 3010 });
 
 app.use(express.static("public"));
@@ -30,6 +32,20 @@ app.get("/github", routes.onAuthenticationRequest);
 app.get("/github/callback", routes.onAuthenticationCallback);
 app.get("/logout", routes.onLogout);
 
+app.get("/organizations", (req, res) => {
+  const jwtoken = req.cookies[config.tokenCookieName];
+  const token = jwt.decode(jwtoken);
+  const client = github.client(token.accessToken);
+  const ghme = client.me();
+  ghme.orgs((err, orgs) => {
+    if (err) {
+      console.log("err", err);
+      res.status(500).send({ err });
+      return;
+    }
+    res.send(orgs);
+  });
+});
 
 wss.on('connection', function connection(ws, req) {
   // const location = url.parse(req.url, true);
