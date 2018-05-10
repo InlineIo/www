@@ -1,5 +1,5 @@
 Vue.component("login-with-github", {
-  template: `<button v-on:click="onClick" class="button block">{{message}}</button>`,
+  template: `<a v-on:click="onClick">{{message}}</a>`,
   name: "LoginWithGithub",
   computed: {
     message() {

@@ -16,11 +16,39 @@
   <script src="https://unpkg.com/buefy@0.6.5/lib/index.js"></script>
   <script src="./js/ws.js"></script>
   <script src="./js/components/index.js"></script>
+  <script src="./js/screens/organizations.js"></script>
+  <script src="./js/screens/repositories.js"></script>
+  <script src="./js/screens/boards.js"></script>
+  <script src="./js/screens/home.js"></script>
+  <script src="./js/stores/board.js"></script>
+  <script src="./js/stores/org.js"></script>
+  <script src="./js/stores/repo.js"></script>
+  <script src="./js/api/inline-api.js"></script>
 </head>
 <body>
   <div id="app">
-    <login-with-github></login-with-github>
-    <list-of-repos></list-of-repos>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <router-link class="navbar-item" to="/">
+          <img src="./images/logo.png" alt="Inline.io: Simple and powerful project management." width="112" height="28">
+        </router-link>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="collapsibleMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+
+      </div>
+        <div class="navbar-menu" id="collapsibleMenu">
+          <div class="navbar-start">
+            <router-link v-for="route in routes" :key="route.path" v-bind:to="route.path" class="navbar-item">{{route.title}}</router-link>
+          </div>
+          <div class="navbar-end">
+            <login-with-github class="navbar-item"></login-with-github>
+          </div>
+        </div>
+    </nav>
+    <router-view></router-view>
   </div>
   <script src="./js/app.js"></script>
 </body>
