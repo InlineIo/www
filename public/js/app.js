@@ -4,11 +4,13 @@ Vue.use(Buefy.default);
 
 // routing
 const routes = [
-  { path: '/', component: Home, title: "Home"},
-  { path: '/organizations', component: Organizations, title: "Organizations" },
-  { path: '/repositories/:orgId', component: Repositories, title: "Repositories" },
-  { path: '/boards', component: Boards, title: "Boards" },
-  { path: '/boards/:orgId', component: Boards, title: "Boards" }
+  {path: '/', component: Home},
+  {path: '/organizations', component: Organizations},
+  {path: '/repositories/:orgId', component: Repositories},
+  {path: '/boards', component: Boards},
+  {path: '/boards/:orgId', component: Boards},
+  {path: '/boards/:orgId/:repo', component: Boards},
+  {path: '/board/:id', component: Board}
 ];
 
 const router = new VueRouter({
@@ -30,7 +32,6 @@ const app = new Vue({
   data: {
     routes: [{
       path: '/organizations',
-      component: Organizations,
       title: "Organizations"
     }]
   }

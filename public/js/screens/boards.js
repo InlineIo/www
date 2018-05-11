@@ -1,3 +1,5 @@
 const Boards = {
-  template: "<div>Boards</div>"
+  template: `<div>
+    <router-link to="/board/:id">Default board</router-link>
+  </div>`
 };

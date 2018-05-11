@@ -12,8 +12,9 @@ const InlineApi = {
         return response.data;
       });
   },
-  getBoards() {
-    return axios.get("/boards")
+  getBoards(org, repo) {
+    const url = repo ? `/boards/${org}/${repo}` : `/boards/${org}`;
+    return axios.get(url)
       .then((response) => {
         return response.data;
       });
