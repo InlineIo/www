@@ -8,10 +8,12 @@ const RepoStore = {
     }
   },
   actions: {
-    getRepositories({ commit }) {
-      InlineApi.getRepositories()
+    getRepositories({ commit }, payload) {
+      InlineApi.getRepositories(payload.org)
         .then((repositories) => {
-          commit("setRepositories", repositories);
+          commit("setRepositories", repositories.sort((a, b) => {
+            return (a.name < b.name) ? -1 : 1;
+          }));
           return;
         })
         .catch((err) => {

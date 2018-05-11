@@ -47,6 +47,21 @@ app.get("/organizations", (req, res) => {
   });
 });
 
+app.get("/repositories/:org", (req, res) => {
+  const jwtoken = req.cookies[config.tokenCookieName];
+  const token = jwt.decode(jwtoken);
+  const client = github.client(token.accessToken);
+  const ghorg = client.org(req.params.org);
+  ghorg.repos(1, 60, (err, orgs) => {
+    if (err) {
+      console.log("err", err);
+      res.status(500).send({ err });
+      return;
+    }
+    res.send(orgs);
+  });
+});
+
 wss.on('connection', function connection(ws, req) {
   // const location = url.parse(req.url, true);
   // You might use location.query.access_token to authenticate or share sessions

@@ -6,8 +6,8 @@ const InlineApi = {
         return response.data;
       });
   },
-  getRepositories() {
-    return axios.get("/repositories")
+  getRepositories(org) {
+    return axios.get(`/repositories/${org}`)
       .then((response) => {
         return response.data;
       });
