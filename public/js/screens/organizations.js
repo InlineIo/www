@@ -1,5 +1,5 @@
 const Organizations = {
-  template: `<b-table :data="orgs">
+  template: `<b-table :data="organizations">
     <template slot-scope="props">
       <b-table-column label="" width="50">
         <img :src="props.row.avatar_url" width="24px"></img>
@@ -16,7 +16,7 @@ const Organizations = {
     </template>
   </b-table>`,
   computed: {
-    orgs() {
+    organizations() {
       return this.$store.getters.organizations;
     }
   },
