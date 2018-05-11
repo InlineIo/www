@@ -22,6 +22,7 @@ module.exports = (passport, config) => {
       const type = req.path.split('/')[1];
       passport.authenticate(type, (error, user) => {
         if (error || !user) {
+          console.log("ERROR_LOGIN:", error);
           res.cookie(config.tokenCookieName, '', cookieOpts({
             reset: true,
             httpOnly: true,

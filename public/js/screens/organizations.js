@@ -8,10 +8,10 @@ const Organizations = {
           {{ props.row.login }}
       </b-table-column>
       <b-table-column field="login" label="Boards">
-          <router-link :to="'/boards/'+ props.row.login">Board</router-link>
+          <router-link :to="'/boards/'+ props.row.login">Choose</router-link>
       </b-table-column>
       <b-table-column field="login" label="Repositories">
-          <router-link :to="'/repositories/'+ props.row.login">Repositories</router-link>
+          <router-link :to="'/repositories/'+ props.row.login">Explore</router-link>
       </b-table-column>
     </template>
   </b-table>`,
