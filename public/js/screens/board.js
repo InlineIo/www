@@ -1,44 +1,13 @@
 const Board = {
   template: `<div class="container">
     <div class="columns">
-      <draggable class="column dragArea" :list="backlog" :options="{group:'people'}" @change="log">
-        <div class="card" v-for="(element, index) in backlog">
-          <div class="card-header">
-            <div class="cart-title">{{ element.name }}</div>
-          </div>
-        </div>
-      </draggable >
-
-      <draggable class="column dragArea" :list="doing" :options="{group:'people'}" @change="log">
-        <div class="card" v-for="(element, index) in doing" :key="index">
-          <div class="card-header">
-            <div class="card-title">{{ element.name }}</div>
-          </div>
-        </div>
-      </draggable>
-
-      <draggable class="column dragArea" :list="staging" :options="{group:'people'}" @change="log">
-        <div class="card" v-for="(element, index) in staging" :key="index">
-          <div class="card-header">
-            <div class="card-title">{{ element.name }}</div>
-          </div>
-        </div>
-      </draggable>
-
-      <draggable class="column dragArea" :list="sandbox" :options="{group:'people'}" @change="log">
-        <div class="card" v-for="(element, index) in sandbox" :key="index">
-          <div class="card-header">
-            <div class="card-title">{{ element.name }}</div>
-          </div>
-        </div>
-      </draggable>
+      <board-column v-bind:title="'Backlog'" v-bind:items="backlog"></board-column>
+      <board-column v-bind:title="'Doing'" v-bind:items="doing"></board-column>
+      <board-column v-bind:title="'Staging'" v-bind:items="staging"></board-column>
+      <board-column v-bind:title="'Sandbox'" v-bind:items="sandbox"></board-column>
     </div>
   </div>`,
-  methods: {
-    log(event) {
-      console.log(event);
-    }
-  },
+
   data() {
     return {
       backlog: [{ name: "hello" }, { name: "second" }],
@@ -46,5 +15,10 @@ const Board = {
       staging: [{ name: "second list" }],
       sandbox: [{name: "second list"}]
     };
+  },
+  methods: {
+    log(event) {
+      console.log(event);
+    }
   }
 };

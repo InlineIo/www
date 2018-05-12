@@ -1,0 +1,14 @@
+.border-highlight:hover {
+  border-color: darkorange;
+  border-style: solid;
+  border-width: 2px;
+}
+.drag-handler:hover {
+  cursor: move;
+}
+.mb-1 {
+  margin-bottom: 0.5em;
+}
+.min-height-100 {
+  min-height: 100%;
+}
