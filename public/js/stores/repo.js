@@ -17,7 +17,7 @@ const RepoStore = {
           return;
         })
         .catch((err) => {
-          console.log("Error calling getOrganizations", err);
+          console.log("Error calling getRepositories", err);
         });
     }
   },

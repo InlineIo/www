@@ -13,6 +13,6 @@
     "promise"
   ],
   "rules": {
-
+    "promise/avoid-new": "off"
   }
 }

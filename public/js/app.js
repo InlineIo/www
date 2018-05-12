@@ -22,7 +22,8 @@ const store = new Vuex.Store({
   modules: {
     OrgStore,
     RepoStore,
-    BoardStore
+    BoardStore,
+    IssuesStore
   }
 });
 

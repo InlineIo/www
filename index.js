@@ -2,6 +2,7 @@
 const express = require("express"),
   WebSocket = require("ws"),
   app = express(),
+  {promisify} = require("util"),
   cookieParser = require("cookie-parser"),
   expressSession = require("express-session"),
   passport = require("passport"),
@@ -60,6 +61,41 @@ app.get("/repositories/:org", (req, res) => {
     }
     res.send(orgs);
   });
+});
+function concat(args) {
+  return args.reduce((acc, val) => {
+    return acc.concat(val);
+  }, []);
+}
+
+app.get("/cases", (req, res) => {
+  if (req.query && req.query.repos && Array.isArray(req.query.repos)) {
+    const jwtoken = req.cookies[config.tokenCookieName];
+    const token = jwt.decode(jwtoken);
+    const client = github.client(token.accessToken);
+    const promises = req.query.repos.map((repo) => {
+      const ghrepo = client.repo(decodeURIComponent(repo));
+      return new Promise((resolve, reject) => {
+        ghrepo.issues({state: "open", per_page: 300}, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        })
+      });
+    });
+    Promise.all(promises)
+      .then((results) => {
+        res.send(concat(results));
+        return;
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  } else {
+    res.status(400).send({ code: "QUERY_REPOS_IS_MANDATORY", msg: "You need to select at least one repository" });
+  }
 });
 
 wss.on('connection', function connection(ws, req) {

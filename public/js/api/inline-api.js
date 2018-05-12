@@ -12,6 +12,12 @@ const InlineApi = {
         return response.data;
       });
   },
+  getIssues(params) {
+    return axios.get(`/cases`, {params})
+      .then((response) => {
+        return response.data;
+      });
+  },
   getBoards(org, repo) {
     const url = repo ? `/boards/${org}/${repo}` : `/boards/${org}`;
     return axios.get(url)
